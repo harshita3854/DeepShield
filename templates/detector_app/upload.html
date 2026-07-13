@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Upload Image{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card p-5 text-center shadow-sm">
+            <h3 class="mb-2 fw-bold">Scan Image</h3>
+            <p class="text-muted mb-4">Upload an image below to check if it's Real or AI-Generated.</p>
+            
+            <form method="post" enctype="multipart/form-data" class="upload-form">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="{{ form.image.id_for_label }}" class="form-label visually-hidden">Select Image</label>
+                    <div class="upload-area border border-2 border-dashed rounded-3 p-5 mb-3" style="border-color: var(--pastel-blue) !important; background-color: #fcfcfc; cursor: pointer;">
+                        <i class="fa-solid fa-cloud-arrow-up fa-3x mb-3 text-muted"></i>
+                        <h5 class="text-muted">Click or Drop Image Here</h5>
+                        <p class="small text-muted mb-0">Supported formats: JPG, PNG, WEBP</p>
+                        {{ form.image }}
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-custom btn-lg"><i class="fa-solid fa-magnifying-glass me-2"></i>Analyze Image</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .upload-area {
+        position: relative;
+        transition: background-color 0.3s ease;
+    }
+    .upload-area:hover {
+        background-color: #f0f8ff;
+    }
+    .upload-form input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}

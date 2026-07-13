@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Detection Result{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+        <div class="card overflow-hidden">
+            <div class="row g-0">
+                <div class="col-md-5 bg-dark">
+                    <img src="{{ upload.image.url }}" alt="Uploaded Image" class="img-fluid w-100 h-100" style="object-fit: contain; min-height: 250px;">
+                </div>
+                <div class="col-md-7 p-5 d-flex flex-column justify-content-center">
+                    <h2 class="mb-1 fw-bold">Analysis Complete</h2>
+                    <p class="text-muted mb-4 small">Analyzed on {{ upload.timestamp|date:"M d, Y h:i A" }}</p>
+                    
+                    <div class="mb-4 p-4 rounded text-center position-relative verdict-box" data-pred="{{ upload.prediction }}">
+                        <h5 class="text-muted mb-2">Verdict:</h5>
+                        {% if upload.prediction == 'Real' %}
+                            <h1 class="display-5 fw-bold" style="color: #2c5e2c;">Authentic</h1>
+                            <p class="mb-0 mt-2 text-success"><i class="fa-solid fa-circle-check me-2"></i>This image is highly likely to be real.</p>
+                        {% else %}
+                            <h1 class="display-5 fw-bold" style="color: #8a2b3b;">AI-Generated</h1>
+                            <p class="mb-0 mt-2 text-danger"><i class="fa-solid fa-triangle-exclamation me-2"></i>Signs of digital manipulation detected.</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-5">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted fw-bold">Confidence Score</span>
+                            <span class="fw-bold">{{ upload.confidence }}%</span>
+                        </div>
+                        <div class="progress" style="height: 12px; border-radius: 6px;">
+                            <div class="progress-bar {% if upload.prediction == 'Real' %}bg-success{% else %}bg-danger{% endif %} progress-bar-striped progress-bar-animated" id="confidenceBar" role="progressbar" data-width="{{ upload.confidence }}" aria-valuenow="{{ upload.confidence }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="{% url 'upload_image' %}" class="btn btn-custom px-4">Detect Another</a>
+                        <a href="{% url 'dashboard' %}" class="btn btn-outline-custom px-4">Back to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .verdict-box {
+        background-color: #f9f9f9;
+        border-left: 5px solid #ccc;
+    }
+    .verdict-box[data-pred="Real"] {
+        border-left-color: var(--pastel-green);
+    }
+    .verdict-box[data-pred="AI-Generated"] {
+        border-left-color: var(--pastel-pink);
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var confBar = document.getElementById('confidenceBar');
+        if (confBar) {
+            confBar.style.width = confBar.getAttribute('data-width') + '%';
+        }
+    });
+</script>
+{% endblock %}

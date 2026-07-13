@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+        <h2 class="fw-bold">My Dashboard</h2>
+        <p class="text-muted">Welcome, {{ user.username }}!</p>
+    </div>
+    <div class="col-md-6 text-md-end">
+        <a href="{% url 'upload_image' %}" class="btn btn-custom"><i class="fa-solid fa-plus me-2"></i>New Detection</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card p-4">
+            <h4 class="mb-4">Detection History</h4>
+            {% if uploads %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Image</th>
+                                <th>Date</th>
+                                <th>Prediction</th>
+                                <th>Confidence</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for upload in uploads %}
+                            <tr>
+                                <td>
+                                    <img src="{{ upload.image.url }}" alt="Upload" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                </td>
+                                <td>{{ upload.timestamp|date:"M d, Y H:i" }}</td>
+                                <td>
+                                    {% if upload.prediction == 'Real' %}
+                                        <span class="badge bg-success" style="background-color: var(--pastel-green) !important; color: #2c5e2c;">Real</span>
+                                    {% else %}
+                                        <span class="badge bg-danger" style="background-color: var(--pastel-pink) !important; color: #8a2b3b;">AI-Generated</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ upload.confidence }}%</td>
+                                <td>
+                                    <a href="{% url 'result' upload.id %}" class="btn btn-sm btn-outline-custom">View Details</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center p-5 rounded" style="background-color: #fafafa;">
+                    <i class="fa-solid fa-folder-open fa-3x mb-3 text-muted"></i>
+                    <h5 class="text-muted">No uploads yet</h5>
+                    <p class="text-muted small">Upload an image to see your detection history here.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

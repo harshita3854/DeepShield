@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row align-items-center mb-5">
+    <div class="col-lg-6 text-center text-lg-start">
+        <h1 class="display-4 fw-bold mb-4">Uncover the <span style="color: var(--pastel-purple);">Truth</span> in Pixels</h1>
+        <p class="lead mb-4 text-muted">DeepShield uses state-of-the-art AI to detect whether an image is Real or AI-Generated (Deepfake). Enhance digital trust today.</p>
+        <a href="{% url 'upload_image' %}" class="btn btn-custom btn-lg me-3">Start Detecting</a>
+        <a href="#about" class="btn btn-outline-custom btn-lg">Learn More</a>
+    </div>
+    <div class="col-lg-6 mt-5 mt-lg-0 text-center">
+        <!-- Placeholder for hero image -->
+        <div class="card bg-light p-5" style="border: 2px dashed var(--pastel-blue); background-color: #f0f8ff !important;">
+            <i class="fa-solid fa-image fa-5x mb-3" style="color: var(--pastel-blue);"></i>
+            <h4 class="text-muted">AI Analysis Engine</h4>
+        </div>
+    </div>
+</div>
+
+<div id="about" class="row mt-5 pt-5 border-top">
+    <div class="col-md-4 text-center mb-4">
+        <div class="p-4 card h-100">
+            <i class="fa-solid fa-microchip fa-3x mb-3" style="color: var(--pastel-green);"></i>
+            <h5>Advanced CNN</h5>
+            <p class="text-muted">Powered by deep learning to catch pixel-level inconsistencies.</p>
+        </div>
+    </div>
+    <div class="col-md-4 text-center mb-4">
+        <div class="p-4 card h-100">
+            <i class="fa-solid fa-bolt fa-3x mb-3" style="color: var(--pastel-pink);"></i>
+            <h5>Fast Processing</h5>
+            <p class="text-muted">Get results in seconds with our optimized detection pipeline.</p>
+        </div>
+    </div>
+    <div class="col-md-4 text-center mb-4">
+        <div class="p-4 card h-100">
+            <i class="fa-solid fa-lock fa-3x mb-3" style="color: var(--pastel-blue);"></i>
+            <h5>Secure & Private</h5>
+            <p class="text-muted">Your uploads are protected and managed securely in your dashboard.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
