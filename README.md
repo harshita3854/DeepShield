@@ -123,7 +123,7 @@ models_store/
 
 **Harshita Yadav**
 
-B.Tech Computer Science Engineering (AI & ML)
+B.Tech Computer Science Engineering
 
 ---
 
